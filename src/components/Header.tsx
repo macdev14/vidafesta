@@ -7,16 +7,20 @@ import { Menu, X } from "lucide-react";
 interface HeaderProps {
   title: string;
   instagram?: string;
+  showPackages?: boolean;
 }
 
-const navLinks = [
+const baseNavLinks = [
   { href: "/#sobre", label: "Sobre" },
-  { href: "/#pacotes", label: "Pacotes" },
+  { href: "/#pacotes", label: "Pacotes", requiresPackages: true },
   { href: "/#galeria", label: "Galeria" },
   { href: "/#contato", label: "Contato" },
 ];
 
-export function Header({ title, instagram }: HeaderProps) {
+export function Header({ title, instagram, showPackages = false }: HeaderProps) {
+  const navLinks = baseNavLinks.filter(
+    (link) => !link.requiresPackages || showPackages,
+  );
   const [open, setOpen] = useState(false);
 
   return (

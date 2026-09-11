@@ -27,7 +27,11 @@ export default async function AgendarPage({ searchParams }: AgendarPageProps) {
 
   return (
     <>
-      <Header title={settings.title} instagram={settings.instagram} />
+      <Header
+        title={settings.title}
+        instagram={settings.instagram}
+        showPackages={packages.length > 0}
+      />
       <main className="min-h-screen bg-[#1a0f14] pt-28 pb-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <Link

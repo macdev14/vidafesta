@@ -34,7 +34,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <Header title={settings.title} instagram={settings.instagram} />
+      <Header
+        title={settings.title}
+        instagram={settings.instagram}
+        showPackages={packages.length > 0}
+      />
       <main>
         <Hero
           title={settings.title}

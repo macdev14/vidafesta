@@ -1,7 +1,6 @@
 import { Briefcase, Cake, GraduationCap, Heart, Users } from "lucide-react";
 import Link from "next/link";
 import type { EventPackage } from "@/lib/types";
-import { EmptyContent } from "./EmptyContent";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   cake: Cake,
@@ -16,6 +15,8 @@ interface PackagesProps {
 }
 
 export function Packages({ packages }: PackagesProps) {
+  if (packages.length === 0) return null;
+
   return (
     <section id="pacotes" className="bg-[#1a0f14] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -29,14 +30,6 @@ export function Packages({ packages }: PackagesProps) {
           </p>
         </div>
 
-        {packages.length === 0 ? (
-          <div className="mt-12">
-            <EmptyContent
-              title="Nenhum pacote cadastrado"
-              description="Adicione pacotes em Studio → Pacotes, ou rode npm run seed para popular os dados iniciais."
-            />
-          </div>
-        ) : (
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {packages.map((pkg) => {
             const Icon = iconMap[pkg.icon] || Cake;
@@ -83,7 +76,6 @@ export function Packages({ packages }: PackagesProps) {
             );
           })}
         </div>
-        )}
       </div>
     </section>
   );
