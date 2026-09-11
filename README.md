@@ -8,7 +8,7 @@ Site de agendamento e apresentação do **Vida Espaço para Festas e Eventos** (
 - Fluxo de agendamento com calendário e formulário
 - Integração com WhatsApp para confirmação
 - CMS Sanity para gerenciar conteúdo e reservas (`/studio`)
-- Dados mock quando o Sanity não está configurado
+- Conteúdo 100% gerenciado pelo Sanity (sem dados fixos no site)
 
 ## Tecnologias
 

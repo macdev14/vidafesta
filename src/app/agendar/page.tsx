@@ -4,6 +4,7 @@ import { BookingForm } from "@/components/BookingForm";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getBookedDates, getPackages, getSiteSettings } from "@/lib/data";
+import { withSiteDefaults } from "@/lib/site-defaults";
 import { format } from "date-fns";
 
 interface AgendarPageProps {
@@ -14,11 +15,13 @@ export default async function AgendarPage({ searchParams }: AgendarPageProps) {
   const params = await searchParams;
   const fromDate = format(new Date(), "yyyy-MM-dd");
 
-  const [settings, packages, bookedDates] = await Promise.all([
+  const [rawSettings, packages, bookedDates] = await Promise.all([
     getSiteSettings(),
     getPackages(),
     getBookedDates(fromDate),
   ]);
+
+  const settings = withSiteDefaults(rawSettings);
 
   return (
     <>

@@ -7,40 +7,31 @@ import {
   siteSettingsQuery,
 } from "@/sanity/queries";
 import type { EventPackage, GalleryItem, SiteSettings } from "./types";
-import {
-  galleryPlaceholderImages,
-  mockGallery,
-  mockPackages,
-  mockSiteSettings,
-} from "./mock-data";
 
-export async function getSiteSettings(): Promise<SiteSettings> {
-  if (!client) return mockSiteSettings;
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  if (!client) return null;
   try {
-    const data = await client.fetch<SiteSettings | null>(siteSettingsQuery);
-    return data ?? mockSiteSettings;
+    return await client.fetch<SiteSettings | null>(siteSettingsQuery);
   } catch {
-    return mockSiteSettings;
+    return null;
   }
 }
 
 export async function getPackages(): Promise<EventPackage[]> {
-  if (!client) return mockPackages;
+  if (!client) return [];
   try {
-    const data = await client.fetch<EventPackage[]>(packagesQuery);
-    return data?.length ? data : mockPackages;
+    return (await client.fetch<EventPackage[]>(packagesQuery)) ?? [];
   } catch {
-    return mockPackages;
+    return [];
   }
 }
 
 export async function getGallery(): Promise<GalleryItem[]> {
-  if (!client) return mockGallery;
+  if (!client) return [];
   try {
-    const data = await client.fetch<GalleryItem[]>(galleryQuery);
-    return data?.length ? data : mockGallery;
+    return (await client.fetch<GalleryItem[]>(galleryQuery)) ?? [];
   } catch {
-    return mockGallery;
+    return [];
   }
 }
 
@@ -56,15 +47,29 @@ export async function getBookedDates(fromDate: string): Promise<string[]> {
   }
 }
 
-export function getGalleryImageUrl(item: GalleryItem, index: number): string {
-  if (item.image && client) {
-    try {
-      return urlFor(item.image).width(800).height(600).url();
-    } catch {
-      // fall through to placeholder
-    }
+export function getGalleryImageUrl(item: GalleryItem): string | null {
+  if (!item.image) return null;
+  return buildImageUrl(item.image, 800, 600);
+}
+
+export function getHeroImageUrl(
+  image: SiteSettings["heroImage"],
+): string | null {
+  if (!image) return null;
+  return buildImageUrl(image, 1920, 1080);
+}
+
+function buildImageUrl(
+  image: NonNullable<GalleryItem["image"]>,
+  width: number,
+  height: number,
+): string | null {
+  if (!client) return null;
+  try {
+    return urlFor(image).width(width).height(height).url();
+  } catch {
+    return null;
   }
-  return galleryPlaceholderImages[index % galleryPlaceholderImages.length];
 }
 
 export function whatsappLink(phone: string, message: string): string {

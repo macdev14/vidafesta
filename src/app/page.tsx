@@ -5,19 +5,30 @@ import { Gallery } from "@/components/Gallery";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Packages } from "@/components/Packages";
-import { getGallery, getGalleryImageUrl, getPackages, getSiteSettings } from "@/lib/data";
+import {
+  getGallery,
+  getGalleryImageUrl,
+  getHeroImageUrl,
+  getPackages,
+  getSiteSettings,
+} from "@/lib/data";
+import { withSiteDefaults } from "@/lib/site-defaults";
 
 export default async function HomePage() {
-  const [settings, packages, galleryItems] = await Promise.all([
+  const [rawSettings, packages, galleryItems] = await Promise.all([
     getSiteSettings(),
     getPackages(),
     getGallery(),
   ]);
 
-  const gallery = galleryItems.map((item, index) => ({
-    ...item,
-    imageUrl: getGalleryImageUrl(item, index),
-  }));
+  const settings = withSiteDefaults(rawSettings);
+
+  const gallery = galleryItems
+    .map((item) => {
+      const imageUrl = getGalleryImageUrl(item);
+      return imageUrl ? { ...item, imageUrl } : null;
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null);
 
   return (
     <>
@@ -30,6 +41,7 @@ export default async function HomePage() {
           address={settings.address}
           city={settings.city}
           capacity={settings.capacity}
+          heroImageUrl={getHeroImageUrl(rawSettings?.heroImage)}
         />
         <Features features={settings.features} />
         <Packages packages={packages} />

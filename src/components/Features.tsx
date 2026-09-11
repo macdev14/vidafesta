@@ -5,6 +5,8 @@ interface FeaturesProps {
 }
 
 export function Features({ features }: FeaturesProps) {
+  if (features.length === 0) return null;
+
   return (
     <section id="sobre" className="bg-[#f5f0eb] py-20 text-[#1a0f14]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
