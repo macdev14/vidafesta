@@ -8,10 +8,12 @@ import {
 } from "@/sanity/queries";
 import type { EventPackage, GalleryItem, SiteSettings } from "./types";
 
+const fetchOptions = { cache: "no-store" as const };
+
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   if (!client) return null;
   try {
-    return await client.fetch<SiteSettings | null>(siteSettingsQuery);
+    return await client.fetch<SiteSettings | null>(siteSettingsQuery, {}, fetchOptions);
   } catch {
     return null;
   }
@@ -20,7 +22,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
 export async function getPackages(): Promise<EventPackage[]> {
   if (!client) return [];
   try {
-    return (await client.fetch<EventPackage[]>(packagesQuery)) ?? [];
+    return (await client.fetch<EventPackage[]>(packagesQuery, {}, fetchOptions)) ?? [];
   } catch {
     return [];
   }
@@ -29,7 +31,7 @@ export async function getPackages(): Promise<EventPackage[]> {
 export async function getGallery(): Promise<GalleryItem[]> {
   if (!client) return [];
   try {
-    return (await client.fetch<GalleryItem[]>(galleryQuery)) ?? [];
+    return (await client.fetch<GalleryItem[]>(galleryQuery, {}, fetchOptions)) ?? [];
   } catch {
     return [];
   }
@@ -40,7 +42,7 @@ export async function getBookedDates(fromDate: string): Promise<string[]> {
   try {
     const data = await client.fetch<{ eventDate: string }[]>(bookedDatesQuery, {
       fromDate,
-    });
+    }, fetchOptions);
     return data.map((item) => item.eventDate);
   } catch {
     return [];

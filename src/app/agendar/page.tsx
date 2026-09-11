@@ -11,6 +11,8 @@ interface AgendarPageProps {
   searchParams: Promise<{ pacote?: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function AgendarPage({ searchParams }: AgendarPageProps) {
   const params = await searchParams;
   const fromDate = format(new Date(), "yyyy-MM-dd");

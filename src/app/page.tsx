@@ -14,6 +14,8 @@ import {
 } from "@/lib/data";
 import { withSiteDefaults } from "@/lib/site-defaults";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [rawSettings, packages, galleryItems] = await Promise.all([
     getSiteSettings(),
