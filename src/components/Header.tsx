@@ -8,19 +8,27 @@ interface HeaderProps {
   title: string;
   instagram?: string;
   showPackages?: boolean;
+  showGallery?: boolean;
 }
 
 const baseNavLinks = [
   { href: "/#sobre", label: "Sobre" },
   { href: "/#pacotes", label: "Pacotes", requiresPackages: true },
-  { href: "/#galeria", label: "Galeria" },
+  { href: "/#galeria", label: "Galeria", requiresGallery: true },
   { href: "/#contato", label: "Contato" },
 ];
 
-export function Header({ title, instagram, showPackages = false }: HeaderProps) {
-  const navLinks = baseNavLinks.filter(
-    (link) => !link.requiresPackages || showPackages,
-  );
+export function Header({
+  title,
+  instagram,
+  showPackages = false,
+  showGallery = false,
+}: HeaderProps) {
+  const navLinks = baseNavLinks.filter((link) => {
+    if (link.requiresPackages && !showPackages) return false;
+    if (link.requiresGallery && !showGallery) return false;
+    return true;
+  });
   const [open, setOpen] = useState(false);
 
   return (

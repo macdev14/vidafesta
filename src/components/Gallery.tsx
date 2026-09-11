@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { GalleryItem } from "@/lib/types";
-import { EmptyContent } from "./EmptyContent";
 
 export interface GalleryItemWithImage extends GalleryItem {
   imageUrl: string;
@@ -23,6 +22,8 @@ const categories = [
 
 export function Gallery({ items }: GalleryProps) {
   const [filter, setFilter] = useState("all");
+
+  if (items.length === 0) return null;
 
   const filtered =
     filter === "all" ? items : items.filter((item) => item.category === filter);
@@ -66,14 +67,6 @@ export function Gallery({ items }: GalleryProps) {
           ))}
         </div>
 
-        {items.length === 0 ? (
-          <div className="mt-10">
-            <EmptyContent
-              title="Galeria vazia"
-              description="Cadastre fotos em Studio → Galeria com imagem, título e categoria."
-            />
-          </div>
-        ) : (
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item) => (
             <figure
@@ -93,7 +86,6 @@ export function Gallery({ items }: GalleryProps) {
             </figure>
           ))}
         </div>
-        )}
       </div>
     </section>
   );

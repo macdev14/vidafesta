@@ -38,6 +38,7 @@ export default async function HomePage() {
         title={settings.title}
         instagram={settings.instagram}
         showPackages={packages.length > 0}
+        showGallery={gallery.length > 0}
       />
       <main>
         <Hero

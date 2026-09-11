@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { BookingForm } from "@/components/BookingForm";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { getBookedDates, getPackages, getSiteSettings } from "@/lib/data";
+import { getBookedDates, getGallery, getPackages, getSiteSettings } from "@/lib/data";
 import { withSiteDefaults } from "@/lib/site-defaults";
 import { format } from "date-fns";
 
@@ -17,11 +17,14 @@ export default async function AgendarPage({ searchParams }: AgendarPageProps) {
   const params = await searchParams;
   const fromDate = format(new Date(), "yyyy-MM-dd");
 
-  const [rawSettings, packages, bookedDates] = await Promise.all([
+  const [rawSettings, packages, galleryItems, bookedDates] = await Promise.all([
     getSiteSettings(),
     getPackages(),
+    getGallery(),
     getBookedDates(fromDate),
   ]);
+
+  const hasGallery = galleryItems.some((item) => Boolean(item.image));
 
   const settings = withSiteDefaults(rawSettings);
 
@@ -31,6 +34,7 @@ export default async function AgendarPage({ searchParams }: AgendarPageProps) {
         title={settings.title}
         instagram={settings.instagram}
         showPackages={packages.length > 0}
+        showGallery={hasGallery}
       />
       <main className="min-h-screen bg-[#1a0f14] pt-28 pb-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
