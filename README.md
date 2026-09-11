@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Festavida — Site de Agendamento
 
-## Getting Started
+Site de agendamento e apresentação do **Vida Espaço para Festas e Eventos** (@festavida), salão de festas em Bragança Paulista, SP.
 
-First, run the development server:
+## Funcionalidades
+
+- Landing page com informações do espaço, pacotes e galeria
+- Fluxo de agendamento com calendário e formulário
+- Integração com WhatsApp para confirmação
+- CMS Sanity para gerenciar conteúdo e reservas (`/studio`)
+- Dados mock quando o Sanity não está configurado
+
+## Tecnologias
+
+- [Next.js 16](https://nextjs.org/) (App Router)
+- [Sanity CMS](https://www.sanity.io/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [react-day-picker](https://react-day-picker.js.org/)
+
+## Desenvolvimento
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse:
+- Site: http://localhost:3000
+- Agendamento: http://localhost:3000/agendar
+- CMS Sanity Studio: http://localhost:3000/studio
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configurar Sanity
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Crie um projeto em [sanity.io/manage](https://www.sanity.io/manage)
+2. Copie `.env.example` para `.env.local` e preencha as variáveis
+3. Crie um token de API com permissão de escrita
+4. Inicie o studio e cadastre:
+   - **Configurações do Site** (documento único)
+   - Pacotes de evento
+   - Imagens da galeria
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Recomendado: [Vercel](https://vercel.com) + Sanity hosted.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contato do espaço
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Instagram: [@festavida](https://instagram.com/festavida)
+- WhatsApp: +55 11 96902-1122
+- Endereço: Av. José Gomes da Rocha Leal, 1451 — Centro, Bragança Paulista, SP
