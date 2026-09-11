@@ -49,6 +49,7 @@ export default async function HomePage() {
           city={settings.city}
           capacity={settings.capacity}
           heroImageUrl={getHeroImageUrl(rawSettings?.heroImage)}
+          showGallery={gallery.length > 0}
         />
         <Features features={settings.features} />
         <Packages packages={packages} />

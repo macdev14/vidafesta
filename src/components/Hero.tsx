@@ -9,9 +9,19 @@ interface HeroProps {
   city: string;
   capacity: number;
   heroImageUrl?: string | null;
+  showGallery?: boolean;
 }
 
-export function Hero({ title, tagline, description, address, city, capacity, heroImageUrl }: HeroProps) {
+export function Hero({
+  title,
+  tagline,
+  description,
+  address,
+  city,
+  capacity,
+  heroImageUrl,
+  showGallery = false,
+}: HeroProps) {
   const backgroundStyle = heroImageUrl
     ? {
         backgroundImage: `linear-gradient(to bottom, rgba(26,15,20,0.55), rgba(26,15,20,0.92)), url('${heroImageUrl}')`,
@@ -61,12 +71,14 @@ export function Hero({ title, tagline, description, address, city, capacity, her
           >
             Agendar seu evento
           </Link>
-          <Link
-            href="/#galeria"
-            className="rounded-full border border-[#d4a574]/50 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-[#f5e6d3] transition hover:border-[#d4a574] hover:bg-[#d4a574]/10"
-          >
-            Ver galeria
-          </Link>
+          {showGallery && (
+            <Link
+              href="/#galeria"
+              className="rounded-full border border-[#d4a574]/50 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-[#f5e6d3] transition hover:border-[#d4a574] hover:bg-[#d4a574]/10"
+            >
+              Ver galeria
+            </Link>
+          )}
         </div>
       </div>
     </section>
