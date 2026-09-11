@@ -34,10 +34,18 @@ Acesse:
 1. Crie um projeto em [sanity.io/manage](https://www.sanity.io/manage)
 2. Copie `.env.example` para `.env.local` e preencha as variáveis
 3. Crie um token de API com permissão de escrita
-4. Inicie o studio e cadastre:
+4. Popule os dados iniciais (pacotes e configurações):
+
+```bash
+npm run seed
+```
+
+5. Ou cadastre manualmente no `/studio`:
    - **Configurações do Site** (documento único)
-   - Pacotes de evento
+   - **Pacotes** de evento
    - Imagens da galeria
+
+> Se **Pacotes** estiver vazio no Studio, rode `npm run seed` ou crie cada pacote com **Create**.
 
 ## Deploy
 
